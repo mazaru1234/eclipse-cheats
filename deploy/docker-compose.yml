@@ -1,0 +1,34 @@
+services:
+  web:
+    image: ghcr.io/mazaru1234/eclipse-cheats:latest
+    container_name: eclipse-cheats
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+      DATABASE_URL: /app/data/eclipse.db
+      UPLOADS_DIR: /app/public/uploads
+    volumes:
+      - eclipse-data:/app/data
+      - eclipse-uploads:/app/public/uploads
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  eclipse-data:
+  eclipse-uploads:
