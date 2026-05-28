@@ -4,11 +4,11 @@ export type ProductTier = Product;
 
 export const TIER_PRESET_DAYS = [1, 3, 7, 14, 30, 90] as const;
 
-export function hasExternalUrl(tier: Pick<ProductTier, "externalUrl">): boolean {
+export function hasExternalUrl(tier: { externalUrl?: string | null }): boolean {
   return Boolean(tier.externalUrl?.trim());
 }
 
-export function isTierPurchasable(tier: Pick<ProductTier, "externalUrl" | "stockCount">): boolean {
+export function isTierPurchasable(tier: { externalUrl?: string | null; stockCount: number }): boolean {
   return hasExternalUrl(tier) || tier.stockCount > 0;
 }
 
