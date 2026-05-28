@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ReviewStars } from "@/components/reviews/ReviewStars";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface ReviewPreview {
   id: string;
@@ -23,7 +24,7 @@ export function HomeReviewsPreview({ reviews, avgRating, total }: HomeReviewsPre
   return (
     <section className="border-t border-[var(--color-border)] bg-[var(--color-bg-elevated)]/20">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <Reveal className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="section-label">Отзывы</p>
             <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">Что говорят покупатели</h2>
@@ -37,17 +38,19 @@ export function HomeReviewsPreview({ reviews, avgRating, total }: HomeReviewsPre
               {total === 1 ? "отзыв" : total < 5 ? "отзыва" : "отзывов"}
             </p>
           </div>
-          <Link href="/reviews" className="btn btn-ghost shrink-0 py-2 text-sm">
+          <Link href="/reviews" className="group btn btn-ghost shrink-0 py-2 text-sm">
             Все отзывы
-            <ArrowRight className="h-4 w-4" aria-hidden />
+            <ArrowRight className="arrow-nudge h-4 w-4" aria-hidden />
           </Link>
-        </div>
+        </Reveal>
 
         <ul className="grid gap-4 md:grid-cols-3">
-          {reviews.slice(0, 3).map((review) => (
-            <li
+          {reviews.slice(0, 3).map((review, i) => (
+            <Reveal
+              as="li"
               key={review.id}
-              className="flex flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)]/60 p-5"
+              index={i}
+              className="flex flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)]/60 p-5 transition-colors hover:border-[rgba(232,185,35,0.22)]"
             >
               <ReviewStars value={review.rating} readonly size="sm" />
               <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-text-secondary)] line-clamp-4">
@@ -59,7 +62,7 @@ export function HomeReviewsPreview({ reviews, avgRating, total }: HomeReviewsPre
                   {review.gameName} · {review.lineName}
                 </p>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>

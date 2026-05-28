@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { getGameBySlug, getGameProductLines } from "@/lib/catalog";
 import { getShopCurrencyContext } from "@/lib/currency-server";
 import { ProductLineCard } from "@/components/shop/ProductLineCard";
+import { Reveal } from "@/components/ui/Reveal";
 import { gameGradient, gameInitials } from "@/lib/game-visuals";
 
 export const revalidate = 60;
@@ -75,15 +76,16 @@ export default async function GameCatalogPage({ params }: PageProps) {
           </div>
         ) : (
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {lines.map((line) => (
-              <ProductLineCard
-                key={line.id}
-                line={line}
-                gameSlug={game.slug}
-                gameName={game.name}
-                displayCurrency={displayCurrency}
-                eurRub={rates.eurRub}
-              />
+            {lines.map((line, i) => (
+              <Reveal key={line.id} variant="scale" index={i}>
+                <ProductLineCard
+                  line={line}
+                  gameSlug={game.slug}
+                  gameName={game.name}
+                  displayCurrency={displayCurrency}
+                  eurRub={rates.eurRub}
+                />
+              </Reveal>
             ))}
           </div>
         )}

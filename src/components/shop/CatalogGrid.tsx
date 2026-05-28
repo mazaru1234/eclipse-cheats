@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { GameCard } from "./GameCard";
+import { Reveal } from "@/components/ui/Reveal";
 import type { Category } from "@/lib/db/schema";
 
 interface CatalogGridProps {
@@ -45,8 +46,10 @@ export function CatalogGrid({ items }: CatalogGridProps) {
         </div>
       ) : (
         <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {filtered.map(({ game, productCount }) => (
-            <GameCard key={game.id} game={game} productCount={productCount} />
+          {filtered.map(({ game, productCount }, i) => (
+            <Reveal key={game.id} variant="scale" index={i}>
+              <GameCard game={game} productCount={productCount} />
+            </Reveal>
           ))}
         </div>
       )}

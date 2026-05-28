@@ -670,6 +670,107 @@ th {
   background: linear-gradient(180deg, transparent 40%, rgba(3, 3, 4, 0.95) 100%);
 }
 
+/* ── Scroll reveal ───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.reveal-scale {
+  transform: translateY(14px) scale(0.97);
+}
+
+.reveal-left {
+  transform: translateX(-26px);
+}
+
+.reveal-right {
+  transform: translateX(26px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Button shine sweep ──────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  background-position: 140% 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+  opacity: 1;
+  animation: btn-shine 0.9s ease;
+}
+
+@keyframes btn-shine {
+  from {
+    background-position: 140% 0;
+  }
+  to {
+    background-position: -40% 0;
+  }
+}
+
+/* ── Arrow nudge on hover ────────────────────────────────── */
+.group:hover .arrow-nudge {
+  transform: translateX(3px);
+}
+
+.arrow-nudge {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Card image zoom ─────────────────────────────────────── */
+.card-media {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.group:hover .card-media {
+  transform: scale(1.05);
+}
+
+/* ── Soft entrance for stat numbers / accents ───────────── */
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .eclipse-ring::before {
     animation: none;
@@ -677,6 +778,17 @@ th {
 
   .hero-ring-glow {
     animation: none;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .card-media,
+  .group:hover .card-media {
+    transform: none !important;
   }
 
   *,

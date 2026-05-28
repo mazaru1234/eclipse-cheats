@@ -15,7 +15,8 @@ export function GameCard({ game, productCount }: GameCardProps) {
       prefetch
       className="group card card-hover block overflow-hidden transition-opacity active:opacity-80"
     >
-      <div className="relative h-44 overflow-hidden" style={{ background: gameGradient(game.id) }}>
+      <div className="relative h-44 overflow-hidden">
+        <div className="card-media absolute inset-0" style={{ background: gameGradient(game.id) }} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(232,185,35,0.15),transparent_55%)]" />
         <span className="absolute left-4 top-4 badge badge-gold">HOT</span>
         <div className="absolute inset-0 flex items-center justify-center px-4">
@@ -40,7 +41,7 @@ export function GameCard({ game, productCount }: GameCardProps) {
         </div>
         <span className="btn btn-ghost shrink-0 px-3 py-2 text-sm group-hover:border-[rgba(232,185,35,0.35)] group-hover:text-gold">
           Перейти
-          <ArrowUpRight className="h-4 w-4" aria-hidden />
+          <ArrowUpRight className="arrow-nudge h-4 w-4" aria-hidden />
         </span>
       </div>
     </Link>

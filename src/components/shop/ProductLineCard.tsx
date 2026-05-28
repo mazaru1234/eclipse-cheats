@@ -26,14 +26,15 @@ export function ProductLineCard({
   return (
     <article className="group card card-hover overflow-hidden">
       <Link href={href} prefetch className="block active:opacity-80">
-        <div
-          className="relative h-52 overflow-hidden"
-          style={{
-            background: line.imageUrl
-              ? `url(${line.imageUrl}) center/cover`
-              : gameGradient(line.id),
-          }}
-        >
+        <div className="relative h-52 overflow-hidden">
+          <div
+            className="card-media absolute inset-0"
+            style={{
+              background: line.imageUrl
+                ? `url(${line.imageUrl}) center/cover`
+                : gameGradient(line.id),
+            }}
+          />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(232,185,35,0.12),transparent_55%)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[rgba(3,3,4,0.96)] via-[rgba(3,3,4,0.35)] to-[rgba(3,3,4,0.15)]" />
 
@@ -71,7 +72,7 @@ export function ProductLineCard({
           </span>
           <span className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)] group-hover:text-gold">
             Подробнее
-            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+            <ArrowUpRight className="arrow-nudge h-3.5 w-3.5" aria-hidden />
           </span>
         </div>
       </Link>
