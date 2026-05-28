@@ -18,20 +18,29 @@ function loadEnvFile(filePath) {
 
 const appDir = __dirname;
 const envFile = path.join(appDir, ".env.production");
+const standaloneServer = path.join(appDir, ".next", "standalone", "server.js");
+
+if (!fs.existsSync(standaloneServer)) {
+  console.warn(
+    "Warning: .next/standalone/server.js not found. Run: npm run build && bash deploy/prepare-standalone.sh"
+  );
+}
 
 module.exports = {
   apps: [
     {
       name: "eclipse",
       cwd: appDir,
-      script: "npm",
-      args: "start",
+      script: standaloneServer,
+      interpreter: "node",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
       max_memory_restart: "512M",
       env: {
         NODE_ENV: "production",
+        PORT: "3000",
+        HOSTNAME: "0.0.0.0",
         ...loadEnvFile(envFile),
       },
     },

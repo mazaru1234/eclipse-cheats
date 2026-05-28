@@ -15,6 +15,7 @@ echo "=== build ==="
 unset NODE_ENV
 npm install --include=dev
 npm run build
+bash deploy/prepare-standalone.sh
 
 echo "=== PM2 ==="
 pm2 restart eclipse --update-env

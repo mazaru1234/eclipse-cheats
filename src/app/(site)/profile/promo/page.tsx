@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getUserPromoUses } from "@/lib/services/payments";
 import { formatCurrency } from "@/lib/utils";
@@ -5,7 +6,9 @@ import { PromoAccountClient } from "@/components/profile/PromoAccountClient";
 
 export default async function PromoPage() {
   const session = await getSession();
-  const uses = await getUserPromoUses(session!.id);
+  if (!session) redirect("/login");
+
+  const uses = await getUserPromoUses(session.id);
 
   const history = uses.map(({ promo, order, use }) => ({
     id: use.id,
