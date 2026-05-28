@@ -8,6 +8,7 @@ APP_DIR="$ROOT"
 
 echo "=== 1. Папки uploads ==="
 mkdir -p "$UPLOADS_DIR/product-lines" "$UPLOADS_DIR/categories"
+mkdir -p "$APP_DIR/public"
 chmod -R 755 /var/lib/eclipse-cheats "$UPLOADS_DIR" 2>/dev/null || true
 chmod 755 /root /root/eclipse /root/eclipse/public 2>/dev/null || true
 
