@@ -1,0 +1,35 @@
+ЗАЛИВКА НА СЕРВЕР — фикс фото
+============================
+
+1) С ПК залить папку deploy и файлы (WinSCP / scp):
+
+   deploy/nginx/eclipse-cheats.ru
+   deploy/fix-uploads.sh
+   deploy/apply-on-server.sh
+
+   + код (если ещё не заливали):
+   src/lib/upload-path.ts
+   src/lib/upload.ts
+   src/app/uploads/[...path]/route.ts
+   .env.production
+
+2) На сервере:
+
+   cd ~/eclipse
+   sed -i 's/\r$//' deploy/apply-on-server.sh deploy/fix-uploads.sh .env.production
+   bash deploy/apply-on-server.sh
+
+   Если только код менялся:
+   unset NODE_ENV
+   npm run build
+   pm2 restart eclipse
+
+3) Проверка в браузере: Ctrl+F5 на сайте
+
+SCP с Windows (PowerShell):
+
+   scp -r "d:\eclipse cheats\deploy" root@138.124.51.156:~/eclipse/
+   scp "d:\eclipse cheats\.env.production" root@138.124.51.156:~/eclipse/
+   scp "d:\eclipse cheats\src\lib\upload-path.ts" root@138.124.51.156:~/eclipse/src/lib/
+   scp "d:\eclipse cheats\src\lib\upload.ts" root@138.124.51.156:~/eclipse/src/lib/
+   scp "d:\eclipse cheats\src\app\uploads\[...path]\route.ts" root@138.124.51.156:~/eclipse/src/app/uploads/[...path]/

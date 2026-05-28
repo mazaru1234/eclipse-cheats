@@ -1,0 +1,24 @@
+[Unit]
+Description=Eclipse Cheats (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/eclipse-cheats
+EnvironmentFile=/etc/eclipse-cheats/env
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=eclipse-cheats
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/eclipse-cheats /var/www/eclipse-cheats/public/uploads
+
+[Install]
+WantedBy=multi-user.target

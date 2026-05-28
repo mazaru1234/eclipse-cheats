@@ -1,0 +1,31 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://eclipse-cheats.ru}
+        NEXT_PUBLIC_EUR_RUB_RATE: ${NEXT_PUBLIC_EUR_RUB_RATE:-98}
+        NEXT_PUBLIC_PLATEGA_USD_RATE: ${NEXT_PUBLIC_PLATEGA_USD_RATE:-95}
+    container_name: eclipse-cheats
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: /app/data/eclipse.db
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - eclipse-data:/app/data
+      - eclipse-uploads:/app/public/uploads
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  eclipse-data:
+  eclipse-uploads:

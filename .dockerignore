@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.gitignore
+data
+.env
+.env.local
+.env.production
+*.log
+README.md
+DEPLOY.md
+deploy
+scripts/check-db.mjs
+scripts/check-migrations.mjs
